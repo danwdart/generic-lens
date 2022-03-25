@@ -127,7 +127,7 @@ sum3Param2Derived = param @2
 
 sum3Param2Manual :: Traversal (Sum3 xxx b c) (Sum3 yyy b c) xxx yyy
 sum3Param2Manual = traversalVL go where
-    go f (A3 a1 a2)         = (\a1' a2' -> A3 a1' a2') <$> f a1 <*> f a2
+    go f (A3 a1 a2)         = A3 <$> f a1 <*> f a2
     go f (B3 s b1 a1 a2 b2) = (\a1' a2' -> B3 s b1 a1' a2' b2) <$> f a1 <*> f a2
     go f (C3 c a i)         = (\a' -> C3 c a' i) <$> f a
 

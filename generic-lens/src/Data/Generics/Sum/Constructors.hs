@@ -1,16 +1,16 @@
-{-# LANGUAGE AllowAmbiguousTypes    #-}
-{-# LANGUAGE DataKinds              #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE PackageImports         #-}
+{-# LANGUAGE AllowAmbiguousTypes  #-}
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE FlexibleInstances    #-}
+
+{-# LANGUAGE PackageImports       #-}
 
 
-{-# LANGUAGE ScopedTypeVariables    #-}
-{-# LANGUAGE TypeApplications       #-}
-{-# LANGUAGE TypeFamilies           #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE TypeApplications     #-}
+{-# LANGUAGE TypeFamilies         #-}
 
-{-# LANGUAGE FlexibleContexts       #-}
-{-# LANGUAGE UndecidableInstances   #-}
+{-# LANGUAGE FlexibleContexts     #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -122,11 +122,11 @@ class AsConstructor0 (ctor :: Symbol) s t a b where
   _Ctor0 :: Prism s t a b
 
 instance (Core.Context' ctor s a, AsConstructor0 ctor s s a a) => AsConstructor' ctor s a where
-  _Ctor' eta = _Ctor0 @ctor eta
+  _Ctor' = _Ctor0 @ctor
   {-# INLINE _Ctor' #-}
 
 instance (Core.Context ctor s t a b, AsConstructor0 ctor s t a b) => AsConstructor ctor s t a b where
-  _Ctor eta = _Ctor0 @ctor eta
+  _Ctor = _Ctor0 @ctor
   {-# INLINE _Ctor #-}
 
 -- | See Note [Uncluttering type signatures]
@@ -145,6 +145,6 @@ instance {-# OVERLAPPING #-} AsConstructor_ ctor (Void1 a) (Void1 b) a b where
   _Ctor_ = undefined
 
 instance Core.Context0 ctor s t a b => AsConstructor0 ctor s t a b where
-  _Ctor0 eta = prism2prismvl (Core.derived0 @ctor) eta
+  _Ctor0 = prism2prismvl (Core.derived0 @ctor)
   {-# INLINE _Ctor0 #-}
 

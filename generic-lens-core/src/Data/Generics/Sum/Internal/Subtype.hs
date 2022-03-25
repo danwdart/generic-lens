@@ -61,7 +61,7 @@ instance
   ( GSplash sub sup
   , GDowncast sub sup
   ) => GAsSubtype sub sup where
-  _GSub f = prism _GSplash _GDowncast f
+  _GSub = prism _GSplash _GDowncast
   {-# INLINE _GSub #-}
 
 --------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ instance
   , ListTuple as' as' as as
   , GAsType supf as'
   ) => GSplash (C1 meta subf) supf where
-  _GSplash p = build (_GTyped . fromIso (mIso . glist . tupled)) p
+  _GSplash = build (_GTyped . fromIso (mIso . glist . tupled))
   {-# INLINE _GSplash #-}
 
 instance GSplash sub sup => GSplash (D1 c sub) sup where
@@ -119,7 +119,7 @@ class GDowncastC (contains :: Bool) sub sup where
   _GDowncastC :: sup x -> Either (sup x) (sub x)
 
 instance GDowncastC 'False sub sup where
-  _GDowncastC sup = Left sup
+  _GDowncastC = Left
   {-# INLINE _GDowncastC #-}
 
 instance

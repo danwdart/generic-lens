@@ -48,7 +48,7 @@ _Right :: Prism (Either c a) (Either c b) a b
 _Right = right'
 
 prismPRavel :: APrism i s t a b -> Prism s t a b
-prismPRavel l = (prism2prismp $ l idPrism)
+prismPRavel l = prism2prismp $ l idPrism
 
 build :: (Tagged i b b -> Tagged i t t) -> b -> t
 build p = unTagged #. p .# Tagged

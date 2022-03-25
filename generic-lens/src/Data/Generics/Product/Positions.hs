@@ -1,20 +1,20 @@
-{-# LANGUAGE AllowAmbiguousTypes    #-}
-{-# LANGUAGE ConstraintKinds        #-}
-{-# LANGUAGE PackageImports         #-}
-{-# LANGUAGE PartialTypeSignatures  #-}
-{-# LANGUAGE TypeInType             #-}
+{-# LANGUAGE AllowAmbiguousTypes   #-}
+{-# LANGUAGE ConstraintKinds       #-}
+{-# LANGUAGE PackageImports        #-}
+{-# LANGUAGE PartialTypeSignatures #-}
+{-# LANGUAGE TypeInType            #-}
 
-{-# LANGUAGE FlexibleContexts       #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE FunctionalDependencies #-}
-
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleInstances     #-}
 
 
-{-# LANGUAGE ScopedTypeVariables    #-}
-{-# LANGUAGE TypeApplications       #-}
-{-# LANGUAGE TypeFamilies           #-}
 
-{-# LANGUAGE UndecidableInstances   #-}
+
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE TypeFamilies          #-}
+
+{-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -121,7 +121,7 @@ setPosition :: forall i s a. HasPosition' i s a => a -> s -> s
 setPosition = VL.set (position' @i)
 
 instance Core.Context' i s a => HasPosition' i s a where
-  position' f s = VL.ravel (Core.derived' @i) f s
+  position' = VL.ravel (Core.derived' @i)
   {-# INLINE position' #-}
 
 instance (Core.Context i s t a b , HasPosition0 i s t a b) => HasPosition i s t a b where
@@ -143,5 +143,5 @@ instance {-# OVERLAPPING #-} HasPosition_ f (Void1 a) (Void1 b) a b where
   position_ = undefined
 
 instance Core.Context0 i s t a b => HasPosition0 i s t a b where
-  position0 f s = VL.ravel (Core.derived0 @i) f s
+  position0 = VL.ravel (Core.derived0 @i)
   {-# INLINE position0 #-}

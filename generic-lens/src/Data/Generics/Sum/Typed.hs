@@ -98,7 +98,7 @@ class AsType a s where
   {-# MINIMAL (injectTyped, projectTyped) | _Typed #-}
 
 instance Core.Context a s => AsType a s where
-  _Typed eta = prism2prismvl Core.derived eta
+  _Typed = prism2prismvl Core.derived
   {-# INLINE _Typed #-}
 
 -- | See Note [Uncluttering type signatures]

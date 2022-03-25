@@ -105,7 +105,7 @@ class AsSubtype sub sup where
   {-# MINIMAL (injectSub, projectSub) | _Sub #-}
 
 instance Core.Context sub sup => AsSubtype sub sup where
-  _Sub f = prism2prismvl Core.derived f
+  _Sub = prism2prismvl Core.derived
   {-# INLINE _Sub #-}
 
 -- | Reflexive case

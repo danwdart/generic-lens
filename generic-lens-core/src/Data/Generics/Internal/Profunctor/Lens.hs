@@ -121,9 +121,9 @@ instance Functor (ALens a b i s) where
   fmap f (ALens _get _set) = ALens _get (f . _set)
 
 instance Profunctor (ALens a b) where
+rmap = dimap id
   dimap f g (ALens get _set) = ALens (get . f) (g . _set)
-  lmap f = dimap f id
-  rmap f = dimap id f
+lmap f = dimap f id
 
 swap :: (a, b) -> (b, a)
 swap (x, y) = (y, x)

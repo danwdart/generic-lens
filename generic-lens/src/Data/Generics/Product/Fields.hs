@@ -3,7 +3,7 @@
 {-# LANGUAGE PackageImports          #-}
 
 {-# LANGUAGE FlexibleInstances       #-}
-{-# LANGUAGE FunctionalDependencies  #-}
+
 
 {-# LANGUAGE ScopedTypeVariables     #-}
 {-# LANGUAGE TypeApplications        #-}
@@ -146,10 +146,10 @@ setField :: forall f s a. HasField' f s a => a -> s -> s
 setField = VL.set (field' @f)
 
 instance Core.Context' field s a => HasField' field s a where
-  field' f s = field0 @field f s
+  field' = field0 @field
 
 instance (Core.Context field s t a b , HasField0 field s t a b) => HasField field s t a b where
-  field f s = field0 @field f s
+  field = field0 @field
 
 -- instance {-# OVERLAPPING #-} HasField' field s a => HasField field s s a a where
 --   field f s = field' @field f s
@@ -165,7 +165,7 @@ instance {-# OVERLAPPING #-} HasField' f (Void1 a) a where
   field' = undefined
 
 instance (Core.Context_ field s t a b , HasField0 field s t a b) => HasField_ field s t a b where
-  field_ f s = field0 @field f s
+  field_ = field0 @field
 
 instance {-# OVERLAPPING #-} HasField_ f (Void1 a) (Void1 b) a b where
   field_ = undefined

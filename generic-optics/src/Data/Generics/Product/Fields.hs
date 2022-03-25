@@ -3,7 +3,7 @@
 {-# LANGUAGE PackageImports          #-}
 
 {-# LANGUAGE FlexibleInstances       #-}
-{-# LANGUAGE FunctionalDependencies  #-}
+
 
 {-# LANGUAGE ScopedTypeVariables     #-}
 {-# LANGUAGE TypeApplications        #-}

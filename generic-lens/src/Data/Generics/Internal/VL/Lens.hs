@@ -64,7 +64,7 @@ lens2lensvl (ALens _get _set) =
 
 ravel :: (ALens a b i a b -> ALens a b i s t)
       ->  Lens s t a b
-ravel l = (lens2lensvl $ l idLens)
+ravel l = lens2lensvl $ l idLens
 
 
 lens :: (s -> a) -> (s -> b -> t) -> Lens s t a b
