@@ -4,7 +4,7 @@
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
 {-# LANGUAGE TupleSections             #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
 {-# LANGUAGE TypeOperators             #-}
 
@@ -22,10 +22,11 @@
 -----------------------------------------------------------------------------
 module Data.Generics.Internal.Profunctor.Lens where
 
-import Data.Profunctor.Indexed        (Profunctor(..), Strong(..))
-import Data.Bifunctor
-import GHC.Generics
-import Data.Generics.Internal.Profunctor.Iso
+import           Data.Bifunctor
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Profunctor.Indexed               (Profunctor (..),
+                                                        Strong (..))
+import           GHC.Generics
 
 type Lens s t a b
   = forall p i . Strong p => p i a b -> p i s t
@@ -35,7 +36,7 @@ type LensLike p s t a b
 
 
 ravel :: (ALens a b i a b -> ALens a b i s t) -> Lens s t a b
-ravel l pab = conv (l idLens) pab
+ravel l = conv (l idLens)
   where
     conv :: ALens a b i s t -> Lens s t a b
     conv (ALens _get _set) = lens _get _set
@@ -70,7 +71,7 @@ first
 -- | Lens focusing on the second element of a product
 second :: Lens ((a :*: b) x) ((a :*: b') x) (b x) (b' x)
 second
-  = lens (\(a :*: b) -> (a,b)) (\(a, b') -> a :*: b')
+  = lens (\(a :*: b) -> (a,b)) (uncurry (:*:))
 
 fork :: (a -> b) -> (a -> c) -> a -> (b, c)
 fork f g a = (f a, g a)
@@ -87,13 +88,13 @@ inj :: Functor f => Coyoneda f a -> f a
 inj (Coyoneda f a) = fmap f a
 
 proj :: Functor f => f a -> Coyoneda f a
-proj fa = Coyoneda id fa
+proj = Coyoneda id
 
 (??) :: Functor f => f (a -> b) -> a -> f b
 fab ?? a = fmap ($ a) fab
 
 assoc3L :: Lens ((a, b), c) ((a', b'), c') (a, (b, c)) (a', (b', c'))
-assoc3L f = assoc3 f
+assoc3L = assoc3
 
 stron :: (Either s s', b) -> Either (s, b) (s', b)
 stron (e, b) =  bimap (,b) (, b) e

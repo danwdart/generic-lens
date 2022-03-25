@@ -1,12 +1,14 @@
-{-# LANGUAGE DataKinds, DeriveGeneric, TypeApplications #-}
+{-# LANGUAGE DataKinds        #-}
+{-# LANGUAGE DeriveGeneric    #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Test24 where
 
 -- Test case from #24, comments preserved
-import Optics.Core
-import Data.Generics.Product.Fields
-import Data.Generics.Product.Positions
-import GHC.Generics
+import           Data.Generics.Product.Fields
+import           Data.Generics.Product.Positions
+import           GHC.Generics
+import           Optics.Core
 
 data Foo a b = Foo { x1 :: a, x2 :: b } deriving (Generic, Show)
 

@@ -1,28 +1,28 @@
-{-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# language ConstraintKinds #-}
-{-# language DataKinds #-}
-{-# language FlexibleContexts #-}
-{-# language FlexibleInstances #-}
-{-# language FunctionalDependencies #-}
-{-# language MultiParamTypeClasses #-}
-{-# language ScopedTypeVariables #-}
-{-# language TypeFamilies #-}
-{-# language TypeOperators #-}
-{-# language UndecidableInstances #-}
+{-# LANGUAGE AllowAmbiguousTypes    #-}
+
+{-# LANGUAGE ConstraintKinds        #-}
+{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
+
+{-# LANGUAGE ScopedTypeVariables    #-}
+{-# LANGUAGE TypeFamilies           #-}
+{-# LANGUAGE TypeOperators          #-}
+{-# LANGUAGE UndecidableInstances   #-}
 
 module Data.Generics.Internal.Wrapped
   ( Context
   , derived
   ) where
 
-import Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Iso
 
-import Data.Generics.Internal.Families.Changing ( UnifyHead )
+import           Data.Generics.Internal.Families.Changing (UnifyHead)
 
-import Data.Kind (Constraint)
-import GHC.Generics
-import GHC.TypeLits
+import           Data.Kind                                (Constraint)
+import           GHC.Generics
+import           GHC.TypeLits
 
 type Context s t a b
   = ( Generic s

@@ -1,13 +1,13 @@
 {-# OPTIONS_HADDOCK hide #-}
-{-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE AllowAmbiguousTypes       #-}
 {-# LANGUAGE ConstraintKinds           #-}
 {-# LANGUAGE GADTs                     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
-{-# LANGUAGE TypeOperators             #-}
+
 
 -----------------------------------------------------------------------------
 -- |
@@ -31,7 +31,7 @@ type Traversal s t a b
   = forall f. Applicative f => (a -> f b) -> s -> f t
 
 confusing :: Applicative f => Traversal s t a b -> (a -> f b) -> s -> f t
-confusing t = \f -> lowerYoneda . lowerCurried . t (liftCurriedYoneda . f)
+confusing t f = lowerYoneda . lowerCurried . t (liftCurriedYoneda . f)
 {-# INLINE confusing #-}
 
 liftCurriedYoneda :: Applicative f => f a -> Curried (Yoneda f) a
@@ -63,7 +63,7 @@ lowerCurried (Curried f) = f (pure id)
 newtype Yoneda f a = Yoneda { runYoneda :: forall b. (a -> b) -> f b }
 
 liftYoneda :: Functor f => f a -> Yoneda f a
-liftYoneda a = Yoneda (\f -> fmap f a)
+liftYoneda a = Yoneda (`fmap` a)
 
 lowerYoneda :: Yoneda f a -> f a
 lowerYoneda (Yoneda f) = f id

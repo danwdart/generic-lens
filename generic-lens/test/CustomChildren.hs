@@ -1,22 +1,22 @@
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE DataKinds             #-}
+{-# LANGUAGE DeriveGeneric         #-}
+{-# LANGUAGE FlexibleInstances     #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE UndecidableInstances  #-}
 
 module CustomChildren
  ( customTypesTest
  ) where
 
-import GHC.Generics
-import Data.Generics.Product
-import Test.HUnit
-import Data.Generics.Internal.VL.Lens
-import Data.Generics.Labels ()
-import Data.Kind
+import           Data.Generics.Internal.VL.Lens
+import           Data.Generics.Labels           ()
+import           Data.Generics.Product
+import           Data.Kind
+import           GHC.Generics
+import           Test.HUnit
 
 -- Opaque has no Generic instance
 data Opaque = Opaque String

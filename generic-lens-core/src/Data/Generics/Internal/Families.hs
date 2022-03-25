@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds             #-}
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies          #-}
 {-# LANGUAGE TypeOperators         #-}
@@ -21,11 +21,12 @@ module Data.Generics.Internal.Families
   , ShowSymbols
   ) where
 
-import Data.Generics.Internal.Families.Collect   as Families
-import Data.Generics.Internal.Families.Has       as Families
-import Data.Generics.Internal.Families.Changing  as Families
+import           Data.Generics.Internal.Families.Changing as Families
+import           Data.Generics.Internal.Families.Collect  as Families
+import           Data.Generics.Internal.Families.Has      as Families
 
-import GHC.TypeLits (ErrorMessage (..), Symbol)
+import           GHC.TypeLits                             (ErrorMessage (..),
+                                                           Symbol)
 
 type family ShowSymbols (ctors :: [Symbol]) :: ErrorMessage where
   ShowSymbols '[]

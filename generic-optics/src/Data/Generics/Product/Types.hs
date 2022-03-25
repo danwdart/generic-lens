@@ -1,18 +1,18 @@
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE PackageImports #-}
+
 {-# LANGUAGE AllowAmbiguousTypes   #-}
 {-# LANGUAGE ConstraintKinds       #-}
 {-# LANGUAGE DataKinds             #-}
-{-# LANGUAGE DefaultSignatures     #-}
+{-# LANGUAGE PackageImports        #-}
+
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds             #-}
 {-# LANGUAGE Rank2Types            #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
 {-# LANGUAGE TypeFamilies          #-}
-{-# LANGUAGE TypeOperators         #-}
+
 {-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
@@ -46,9 +46,11 @@ module Data.Generics.Product.Types
   , Core.HasTypesCustom (typesCustom)
   ) where
 
-import Data.Generics.Internal.Optics hiding (to, QuoteType)
+import           Data.Generics.Internal.Optics                            hiding
+                                                                          (QuoteType,
+                                                                           to)
 
-import qualified "generic-lens-core" Data.Generics.Internal.VL.Traversal as VL
+import qualified "generic-lens-core" Data.Generics.Internal.VL.Traversal  as VL
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Types as Core
 
 -- $setup
@@ -74,7 +76,7 @@ import qualified "generic-lens-core" Data.Generics.Product.Internal.Types as Cor
 -- | Traverse all types in the given structure.
 --
 -- For example, to update all 'String's in a @WTree (Maybe String) String@, we can write
--- 
+--
 -- >>> myTree = WithWeight (Fork (Leaf (Just "hello")) (Leaf Nothing)) "world"
 -- >>> over (types @String) (++ "!") myTree
 -- WithWeight (Fork (Leaf (Just "hello!")) (Leaf Nothing)) "world!"

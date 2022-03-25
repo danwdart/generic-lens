@@ -1,14 +1,14 @@
+{-# LANGUAGE DataKinds             #-}
+{-# LANGUAGE DeriveGeneric         #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE TypeApplications      #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Test25 where
 
-import Control.Lens
-import Data.Generics.Product
-import GHC.Generics
+import           Control.Lens
+import           Data.Generics.Product
+import           GHC.Generics
 
 data Record1 = Record1
     { field1 :: Int

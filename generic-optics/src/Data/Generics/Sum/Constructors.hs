@@ -1,16 +1,16 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE DataKinds              #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE PackageImports         #-}
+
+
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
 {-# LANGUAGE TypeFamilies           #-}
-{-# LANGUAGE TypeOperators          #-}
-{-# LANGUAGE UndecidableInstances   #-}
+
 {-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE UndecidableInstances   #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -35,12 +35,12 @@ module Data.Generics.Sum.Constructors
   , AsConstructor0 (..)
   ) where
 
-import "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Internal.Optics
 
-import "generic-lens-core" Data.Generics.Internal.Void
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Sum.Internal.Constructors as Core
 
-import GHC.TypeLits (Symbol)
+import           GHC.TypeLits                                                (Symbol)
 
 
 -- $setup

@@ -1,11 +1,11 @@
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE ConstraintKinds        #-}
 {-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+
+
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
 {-# LANGUAGE TypeFamilies           #-}
@@ -37,17 +37,16 @@ module Data.Generics.Sum.Internal.Constructors
   , derived0
   ) where
 
-import Data.Generics.Internal.Families
-import Data.Generics.Internal.Errors
-import Data.Generics.Product.Internal.HList
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Families
+import           Data.Generics.Product.Internal.HList
 
-import GHC.Generics
-import GHC.TypeLits (Symbol)
-import Data.Kind (Constraint, Type)
-import Data.Generics.Internal.Profunctor.Iso
-import Data.Generics.Internal.Profunctor.Prism
-
-import GHC.TypeLits (TypeError, ErrorMessage (..))
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Prism
+import           Data.Kind                               (Constraint, Type)
+import           GHC.Generics
+import           GHC.TypeLits                            (ErrorMessage (..),
+                                                          Symbol, TypeError)
 
 derived0 :: forall ctor s t a b. Context0 ctor s t a b => Prism s t a b
 derived0 = repIso . _GCtor @ctor
@@ -88,7 +87,7 @@ type Context0 ctor s t a b
                       ':<>: QuoteType ctor ':<>: 'Text " constructor of type " ':<>: QuoteType a
                     , 'Text "in " ':<>: QuoteType s])
       (() :: Constraint)
-    ) 
+    )
 
 type family ErrorUnless (ctor :: Symbol) (s :: Type) (contains :: Bool) :: Constraint where
   ErrorUnless ctor s 'False

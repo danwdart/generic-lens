@@ -1,9 +1,9 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE MonoLocalBinds         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE PackageImports         #-}
+
+
 {-# LANGUAGE PolyKinds              #-}
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
@@ -30,10 +30,10 @@ module Data.Generics.Product.Any
     HasAny (..)
   ) where
 
-import Optics.Lens
-import "this" Data.Generics.Product.Fields
-import "this" Data.Generics.Product.Positions
-import "this" Data.Generics.Product.Typed
+import           "this" Data.Generics.Product.Fields
+import           "this" Data.Generics.Product.Positions
+import           "this" Data.Generics.Product.Typed
+import           Optics.Lens
 
 -- $setup
 -- == /Running example:/

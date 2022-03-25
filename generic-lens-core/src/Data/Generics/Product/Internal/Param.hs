@@ -1,28 +1,28 @@
-{-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE AllowAmbiguousTypes  #-}
+{-# LANGUAGE ConstraintKinds      #-}
+{-# LANGUAGE FlexibleContexts     #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE TypeApplications     #-}
+{-# LANGUAGE TypeFamilies         #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE ConstraintKinds #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE KindSignatures #-}
-{-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE DataKinds #-}
+
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE TypeOperators        #-}
 
 module Data.Generics.Product.Internal.Param
   ( Context
   , derived
   ) where
 
-import Data.Generics.Product.Internal.Types
-import Data.Generics.Internal.VL.Traversal
+import           Data.Generics.Internal.VL.Traversal
+import           Data.Generics.Product.Internal.Types
 
-import GHC.Generics
-import Data.Kind
-import Data.Generics.Internal.Families
-import Data.Generics.Internal.GenericN
-import Data.Generics.Internal.Errors
-import GHC.TypeLits
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Families
+import           Data.Generics.Internal.GenericN
+import           Data.Kind
+import           GHC.Generics
+import           GHC.TypeLits
 
 type Context n s t a b
   =  ( GenericN s
@@ -36,7 +36,7 @@ type Context n s t a b
        (() :: Constraint)
      , s ~ Infer t (P n b 'PTag) a
      , t ~ Infer s (P n a 'PTag) b
-     , Error ((ArgCount s) <=? n) n (ArgCount s) s
+     , Error (ArgCount s <=? n) n (ArgCount s) s
      , a ~ ArgAt s n
      , b ~ ArgAt t n
      , GHasTypes ChGeneric (RepN s) (RepN t) (Param n a) (Param n b)

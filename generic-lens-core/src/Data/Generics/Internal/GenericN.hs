@@ -28,10 +28,10 @@ module Data.Generics.Internal.GenericN
   , GenericN (..)
   ) where
 
-import Data.Kind
-import GHC.Generics
-import GHC.TypeLits
-import Data.Coerce
+import           Data.Coerce
+import           Data.Kind
+import           GHC.Generics
+import           GHC.TypeLits
 
 data family Param :: Nat -> j -> k
 

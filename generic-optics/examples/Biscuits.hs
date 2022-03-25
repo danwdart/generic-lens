@@ -7,9 +7,9 @@
 
 module Biscuits where
 
-import Optics.Core
-import Data.Generics.Product
-import GHC.Generics (Generic)
+import           Data.Generics.Product
+import           GHC.Generics          (Generic)
+import           Optics.Core
 
 -- $setup
 --
@@ -27,9 +27,9 @@ data Item = Item
 newtype Cost = Cost Double deriving (Generic, Show)
 
 data Invoice p = Invoice
- { item :: Item
- , name :: String
- , number :: Int
+ { item     :: Item
+ , name     :: String
+ , number   :: Int
  , priority :: p
  } deriving (Generic, Show)
 
@@ -108,15 +108,15 @@ thankYouPriority :: Orders -> Orders
 thankYouPriority = over (position @2 % types @Cost) (\(Cost c) -> Cost (c * 0.85))
 
 upgrade :: Double -> Invoice Int -> Invoice (Int, Double)
-upgrade bribe invoice = over (param @0) (\i -> (i, bribe)) invoice
+upgrade bribe = over (param @0) (\i -> (i, bribe))
 
 audit :: Orders -> [Item]
 audit = toListOf (types @Item)
 
 newtype Weight = Weight Double deriving (Generic, Show)
 data WeighedItem = WItem
- { name :: String
- , cost :: Cost
+ { name   :: String
+ , cost   :: Cost
  , weight :: Weight
  } deriving (Generic, Show)
 

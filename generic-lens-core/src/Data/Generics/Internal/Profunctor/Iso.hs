@@ -1,10 +1,10 @@
 {-# OPTIONS_HADDOCK hide #-}
-{-# LANGUAGE TupleSections #-}
+
 {-# LANGUAGE GADTs                     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
 {-# LANGUAGE TypeOperators             #-}
 
@@ -22,9 +22,11 @@
 -----------------------------------------------------------------------------
 module Data.Generics.Internal.Profunctor.Iso where
 
-import Data.Profunctor.Indexed
-import GHC.Generics           ((:*:)(..), (:+:)(..), Generic(..), M1(..), K1(..), Rep)
-import Data.Generics.Internal.GenericN (Rec (..))
+import           Data.Generics.Internal.GenericN (Rec (..))
+import           Data.Profunctor.Indexed
+import           GHC.Generics                    (Generic (..), K1 (..),
+                                                  M1 (..), Rep, (:*:) (..),
+                                                  (:+:) (..))
 
 -- import qualified Data.Generics.Internal.VL.Iso as VL
 
@@ -60,7 +62,7 @@ sumIso = iso back forth
 {-# INLINE sumIso #-}
 
 prodIso :: Iso ((a :*: b) x) ((a' :*: b') x) (a x, b x) (a' x, b' x)
-prodIso = iso (\(a :*: b) -> (a, b)) (\(a, b) -> (a :*: b))
+prodIso = iso (\(a :*: b) -> (a, b)) (uncurry (:*:))
 
 assoc3 :: Iso ((a, b), c) ((a', b'), c') (a, (b, c)) (a', (b', c'))
 assoc3 = iso (\((a, b), c) -> (a, (b, c))) (\(a, (b, c)) -> ((a, b), c))
@@ -73,7 +75,7 @@ fromIso l = withIso l $ \ sa bt -> iso bt sa
 {-# INLINE fromIso #-}
 
 iso :: (s -> a) -> (b -> t) -> Iso s t a b
-iso sa bt = dimap sa bt
+iso = dimap
 {-# INLINE iso #-}
 
 withIso :: Iso s t a b -> ((s -> a) -> (b -> t) -> r) -> r

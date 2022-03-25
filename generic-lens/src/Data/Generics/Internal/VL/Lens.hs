@@ -1,12 +1,12 @@
 {-# OPTIONS_HADDOCK hide #-}
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE GADTs                     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE PackageImports            #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
-{-# LANGUAGE TypeOperators             #-}
+
 {-# LANGUAGE TupleSections             #-}
 
 -----------------------------------------------------------------------------
@@ -23,11 +23,12 @@
 -----------------------------------------------------------------------------
 module Data.Generics.Internal.VL.Lens where
 
-import "generic-lens-core" Data.Generics.Internal.Profunctor.Lens (ALens (..), idLens)
+import           "generic-lens-core" Data.Generics.Internal.Profunctor.Lens (ALens (..),
+                                                                             idLens)
 
-import Control.Applicative    (Const(..))
-import Data.Coerce            (coerce)
-import Data.Functor.Identity  (Identity(..))
+import           Control.Applicative                                        (Const (..))
+import           Data.Coerce                                                (coerce)
+import           Data.Functor.Identity                                      (Identity (..))
 
 -- | Type alias for lens
 type Lens' s a
@@ -63,10 +64,10 @@ lens2lensvl (ALens _get _set) =
 
 ravel :: (ALens a b i a b -> ALens a b i s t)
       ->  Lens s t a b
-ravel l pab = (lens2lensvl $ l idLens) pab
+ravel l = (lens2lensvl $ l idLens)
 
 
 lens :: (s -> a) -> (s -> b -> t) -> Lens s t a b
-lens get _set = \f x -> _set x <$> f (get x)
+lens get _set f x = _set x <$> f (get x)
 {-# INLINE lens #-}
 

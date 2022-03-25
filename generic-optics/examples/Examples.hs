@@ -1,31 +1,31 @@
-{-# LANGUAGE AllowAmbiguousTypes          #-}
-{-# LANGUAGE DataKinds                    #-}
-{-# LANGUAGE DeriveGeneric                #-}
-{-# LANGUAGE DuplicateRecordFields        #-}
-{-# LANGUAGE FlexibleContexts             #-}
-{-# LANGUAGE GADTs                        #-}
-{-# LANGUAGE NoMonomorphismRestriction    #-}
-{-# LANGUAGE OverloadedLabels             #-}
-{-# LANGUAGE PartialTypeSignatures        #-}
-{-# LANGUAGE Rank2Types                   #-}
-{-# LANGUAGE ScopedTypeVariables          #-}
-{-# LANGUAGE TypeApplications             #-}
-{-# LANGUAGE UndecidableInstances         #-}
+{-# LANGUAGE AllowAmbiguousTypes       #-}
+{-# LANGUAGE DataKinds                 #-}
+{-# LANGUAGE DeriveGeneric             #-}
+{-# LANGUAGE DuplicateRecordFields     #-}
+{-# LANGUAGE FlexibleContexts          #-}
+{-# LANGUAGE GADTs                     #-}
+{-# LANGUAGE NoMonomorphismRestriction #-}
+
+{-# LANGUAGE PartialTypeSignatures     #-}
+{-# LANGUAGE Rank2Types                #-}
+{-# LANGUAGE ScopedTypeVariables       #-}
+{-# LANGUAGE TypeApplications          #-}
+{-# LANGUAGE UndecidableInstances      #-}
 {-# OPTIONS_GHC -Wno-missing-signatures   #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports  #-}
 
 module Examples where
 
-import Data.Function ((&))
-import Optics.Core
-import Data.Generics.Product
-import Data.Generics.Sum
-import GHC.Generics
-import Optics.Iso
-import Optics.Prism
-import Data.Generics.Internal.Profunctor.Lens
-import Data.Generics.Internal.Profunctor.Iso
-import Data.Generics.Internal.Profunctor.Prism
+import           Data.Function                           ((&))
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Lens
+import           Data.Generics.Internal.Profunctor.Prism
+import           Data.Generics.Product
+import           Data.Generics.Sum
+import           GHC.Generics
+import           Optics.Core
+import           Optics.Iso
+import           Optics.Prism
 
 data Animal = Animal
   { name :: String
@@ -66,7 +66,7 @@ changedA = Test 10 "hello" "world" & field @"fieldA" .~ (10 :: Int)
 -- | changedB :: Test String Int
 -- >>> changedB
 -- Test {fieldInt = 10, fieldA = "hello", fieldB = 10}
-changedB = (Test 10 "hello" "world") & field @"fieldB" .~ (10 :: Int)
+changedB = Test 10 "hello" "world" & field @"fieldB" .~ (10 :: Int)
 
 data Animal2 a
   = Dog (Dog a)
@@ -127,4 +127,4 @@ data Bar a b = Bar
   { barField :: (a, b)
   } deriving Generic
 
-modifiedBar = (Bar ("hello", "world")) & field @"barField" .~ ('c', 1 :: Int)
+modifiedBar = Bar ("hello", "world") & field @"barField" .~ ('c', 1 :: Int)

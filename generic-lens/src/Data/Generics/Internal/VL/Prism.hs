@@ -1,12 +1,12 @@
 {-# OPTIONS_HADDOCK hide #-}
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE GADTs                     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE PackageImports            #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
-{-# LANGUAGE TypeOperators             #-}
+
 
 -----------------------------------------------------------------------------
 -- |
@@ -24,9 +24,9 @@ module Data.Generics.Internal.VL.Prism where
 
 import qualified "generic-lens-core" Data.Generics.Internal.Profunctor.Prism as P
 
-import qualified Data.Profunctor as P
-import Data.Functor.Identity (Identity (..))
-import Data.Coerce (coerce)
+import           Data.Coerce                                                 (coerce)
+import           Data.Functor.Identity                                       (Identity (..))
+import qualified Data.Profunctor                                             as P
 
 -- | Type alias for prism
 type Prism s t a b
@@ -46,7 +46,7 @@ build p = case p (Market Identity Right) of
 {-# INLINE build #-}
 
 prism :: (b -> t) -> (s -> Either t a) -> Prism s t a b
-prism bt seta eta = P.dimap (\x -> P.left' pure (seta x)) (either id (\x -> fmap bt x)) (P.right' eta)
+prism bt seta eta = P.dimap (P.left' pure . seta) (either id (fmap bt)) (P.right' eta)
 {-# INLINE prism #-}
 
 prism2prismvl :: P.APrism i s t a b -> Prism s t a b
@@ -73,13 +73,13 @@ instance P.Profunctor (Market a b) where
 instance P.Choice (Market a b) where
   left' (Market bt seta) = Market (Left . bt) $ \sc -> case sc of
     Left s -> case seta s of
-      Left t -> Left (Left t)
+      Left t  -> Left (Left t)
       Right a -> Right a
     Right c -> Left (Right c)
   {-# INLINE left' #-}
   right' (Market bt seta) = Market (Right . bt) $ \cs -> case cs of
     Left c -> Left (Left c)
     Right s -> case seta s of
-      Left t -> Left (Right t)
+      Left t  -> Left (Right t)
       Right a -> Right a
   {-# INLINE right' #-}

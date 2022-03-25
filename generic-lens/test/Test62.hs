@@ -1,8 +1,11 @@
-{-# LANGUAGE DataKinds, DeriveGeneric, TypeApplications #-}
+{-# LANGUAGE DataKinds        #-}
+{-# LANGUAGE DeriveGeneric    #-}
+{-# LANGUAGE TypeApplications #-}
 module Test62 (example, example_) where
-import Data.Generics.Product (field, field_, position, position_)
-import Data.Generics.Internal.VL.Lens (set)
-import GHC.Generics (Generic)
+import           Data.Generics.Internal.VL.Lens (set)
+import           Data.Generics.Product          (field, field_, position,
+                                                 position_)
+import           GHC.Generics                   (Generic)
 
 data Foo a = Foo { bar :: Bar a } deriving Generic
 data Bar a = Bar { x :: a, y :: a } deriving Generic

@@ -1,10 +1,12 @@
-{-# LANGUAGE FlexibleContexts, DeriveGeneric, TypeApplications #-}
+{-# LANGUAGE DeriveGeneric    #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Test71 where
 
-import GHC.Generics
-import Control.Lens
-import Data.Generics.Product
+import           Control.Lens
+import           Data.Generics.Product
+import           GHC.Generics
 
 data Foobar = Foobar Int Char String
     deriving Generic

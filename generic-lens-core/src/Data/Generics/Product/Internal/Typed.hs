@@ -1,9 +1,9 @@
-{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE AllowAmbiguousTypes   #-}
-{-# LANGUAGE DataKinds             #-}
+{-# LANGUAGE ConstraintKinds       #-}
+
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
@@ -17,15 +17,16 @@ module Data.Generics.Product.Internal.Typed
  , derived
  ) where
 
-import Data.Generics.Internal.Families
-import Data.Generics.Product.Internal.GLens
+import           Data.Generics.Internal.Families
+import           Data.Generics.Product.Internal.GLens
 
-import Data.Kind    (Constraint, Type)
-import GHC.Generics (Generic (Rep))
-import GHC.TypeLits (TypeError, ErrorMessage (..))
-import Data.Generics.Internal.Profunctor.Lens (Lens)
-import Data.Generics.Internal.Profunctor.Iso (repIso)
-import Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Profunctor.Iso  (repIso)
+import           Data.Generics.Internal.Profunctor.Lens (Lens)
+import           Data.Kind                              (Constraint, Type)
+import           GHC.Generics                           (Generic (Rep))
+import           GHC.TypeLits                           (ErrorMessage (..),
+                                                         TypeError)
 
 type Context a s = ( Generic s
   , ErrorUnlessOne a s (CollectTotalType a (Rep s))
@@ -71,5 +72,5 @@ type family ErrorUnlessOne (a :: Type) (s :: Type) (stat :: TypeStat) :: Constra
   ErrorUnlessOne _ _ ('TypeStat '[] '[] _)
     = ()
 
-data HasTotalTypePSym :: Type -> (TyFun (Type -> Type) (Maybe Type))
+data HasTotalTypePSym :: Type -> TyFun (Type -> Type) (Maybe Type)
 type instance Eval (HasTotalTypePSym t) tt = HasTotalTypeP t tt

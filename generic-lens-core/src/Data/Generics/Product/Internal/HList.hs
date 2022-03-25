@@ -34,13 +34,13 @@ module Data.Generics.Product.Internal.HList
   , TupleToList
   ) where
 
-import GHC.TypeLits
+import           GHC.TypeLits
 
-import Data.Kind    (Type)
-import GHC.Generics
-import Data.Profunctor.Indexed
-import Data.Generics.Internal.Profunctor.Lens
-import Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Lens
+import           Data.Kind                              (Type)
+import           Data.Profunctor.Indexed
+import           GHC.Generics
 
 data HList (as :: [Type]) where
   Nil :: HList '[]
@@ -129,7 +129,7 @@ singleton :: Iso a b (HList '[a]) (HList '[ b])
 singleton = iso (:> Nil) (\(x :> _) -> x)
 
 consing :: Iso (a, HList as) (b, HList bs) (HList (a ': as)) (HList (b ': bs))
-consing = iso (\(x, xs) -> x :> xs) (\(x :> xs) -> (x, xs))
+consing = iso (uncurry (:>)) (\(x :> xs) -> (x, xs))
 
 --------------------------------------------------------------------------------
 class IndexList (i :: Nat) as bs a b | i as -> a, i bs -> b, i as b -> bs, i bs a -> as where

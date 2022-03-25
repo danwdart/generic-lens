@@ -3,37 +3,37 @@
 
 {-# OPTIONS_GHC -funfolding-use-threshold=150 #-}
 
-{-# LANGUAGE AllowAmbiguousTypes             #-}
-{-# LANGUAGE DataKinds                       #-}
-{-# LANGUAGE DeriveGeneric                   #-}
-{-# LANGUAGE DuplicateRecordFields           #-}
-{-# LANGUAGE ExistentialQuantification       #-}
-{-# LANGUAGE RankNTypes                      #-}
-{-# LANGUAGE ScopedTypeVariables             #-}
-{-# LANGUAGE TypeApplications                #-}
-{-# LANGUAGE TemplateHaskell                 #-}
-{-# LANGUAGE OverloadedLabels                #-}
+{-# LANGUAGE AllowAmbiguousTypes       #-}
+{-# LANGUAGE DataKinds                 #-}
+{-# LANGUAGE DeriveGeneric             #-}
+{-# LANGUAGE DuplicateRecordFields     #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE OverloadedLabels          #-}
+{-# LANGUAGE RankNTypes                #-}
+{-# LANGUAGE ScopedTypeVariables       #-}
+{-# LANGUAGE TemplateHaskell           #-}
+{-# LANGUAGE TypeApplications          #-}
 
 module Main where
 
-import GHC.Generics
-import Data.Generics.Product
-import Data.Generics.Sum
-import Test.Inspection
-import Test.HUnit
-import Util
-import System.Exit
-import Data.Generics.Internal.VL
-import Control.Lens (_1, (+~), (^?))
-import Data.Function ((&))
-import Data.Generics.Labels ()
+import           Control.Lens              (_1, (+~), (^?))
+import           Data.Function             ((&))
+import           Data.Generics.Internal.VL
+import           Data.Generics.Labels      ()
+import           Data.Generics.Product
+import           Data.Generics.Sum
+import           GHC.Generics
+import           System.Exit
+import           Test.HUnit
+import           Test.Inspection
+import           Util
 
 -- This is sufficient at we only want to test that they typecheck
-import Test24 ()
-import Test25 ()
-import Test88 ()
+import           Test24                    ()
+import           Test25                    ()
+import           Test88                    ()
 
-import CustomChildren (customTypesTest)
+import           CustomChildren            (customTypesTest)
 
 main :: IO ()
 main = do
@@ -71,7 +71,7 @@ data Record5 = MkRecord5
   } deriving Generic
 
 typeChangingManual :: Lens (Record3 a) (Record3 b) a b
-typeChangingManual f (MkRecord3 a b) = (\a' -> MkRecord3 a' b) <$> f a
+typeChangingManual f (MkRecord3 a b) = (`MkRecord3` b) <$> f a
 
 typeChangingManualCompose :: Lens (Record3 (Record3 a)) (Record3 (Record3 b)) a b
 typeChangingManualCompose = typeChangingManual . typeChangingManual
@@ -80,13 +80,13 @@ newtype L s a = L (Lens' s a)
 
 intTraversalManual :: Traversal' Record5 Int
 intTraversalManual f (MkRecord5 a b c d e f') =
-    pure (\a1 a2 a3 a4 -> MkRecord5 a1 a2 c a3 e a4) <*> f a <*> f b <*> f d <*> f f'
+    (\a1 a2 a3 a4 -> MkRecord5 a1 a2 c a3 e a4) <$> f a <*> f b <*> f d <*> f f'
 
 intTraversalDerived :: Traversal' Record5 Int
 intTraversalDerived = types
 
 fieldALensManual :: Lens' Record Int
-fieldALensManual f (MkRecord a b) = (\a' -> MkRecord a' b) <$> f a
+fieldALensManual f (MkRecord a b) = (`MkRecord` b) <$> f a
 
 subtypeLensManual :: Lens' Record Record2
 subtypeLensManual f record
@@ -109,26 +109,26 @@ sum3Param0Derived = param @0
 sum3Param0Manual :: Traversal (Sum3 a b xxx) (Sum3 a b yyy) xxx yyy
 sum3Param0Manual _ (A3 a1 a2)         = pure (A3 a1 a2)
 sum3Param0Manual _ (B3 s b1 a1 a2 b2) = pure (B3 s b1 a1 a2 b2)
-sum3Param0Manual f (C3 c a i)         = pure (\c' -> C3 c' a i) <*> f c
+sum3Param0Manual f (C3 c a i)         = (\c' -> C3 c' a i) <$> f c
 
 sum3Param1Derived :: Traversal (Sum3 a xxx c) (Sum3 a yyy c) xxx yyy
 sum3Param1Derived = param @1
 
 sum3Param1Manual :: Traversal (Sum3 a xxx c) (Sum3 a yyy c) xxx yyy
 sum3Param1Manual _ (A3 a1 a2)         = pure (A3 a1 a2)
-sum3Param1Manual f (B3 s b1 a1 a2 b2) = pure (\b1' b2' -> B3 s b1' a1 a2 b2') <*> f b1 <*> f b2
+sum3Param1Manual f (B3 s b1 a1 a2 b2) = (\b1' b2' -> B3 s b1' a1 a2 b2') <$> f b1 <*> f b2
 sum3Param1Manual _ (C3 c a i)         = pure (C3 c a i)
 
 sum3Param2Derived :: Traversal (Sum3 xxx b c) (Sum3 yyy b c) xxx yyy
 sum3Param2Derived = param @2
 
 sum3Param2Manual :: Traversal (Sum3 xxx b c) (Sum3 yyy b c) xxx yyy
-sum3Param2Manual f (A3 a1 a2)         = pure (\a1' a2' -> A3 a1' a2') <*> f a1 <*> f a2
-sum3Param2Manual f (B3 s b1 a1 a2 b2) = pure (\a1' a2' -> B3 s b1 a1' a2' b2) <*> f a1 <*> f a2
-sum3Param2Manual f (C3 c a i)         = pure (\a' -> C3 c a' i) <*> f a
+sum3Param2Manual f (A3 a1 a2)         = (\a1' a2' -> A3 a1' a2') <$> f a1 <*> f a2
+sum3Param2Manual f (B3 s b1 a1 a2 b2) = (\a1' a2' -> B3 s b1 a1' a2' b2) <$> f a1 <*> f a2
+sum3Param2Manual f (C3 c a i)         = (\a' -> C3 c a' i) <$> f a
 
 sum1PrismManual :: Prism Sum1 Sum1 Int Int
-sum1PrismManual eta = prism g f eta
+sum1PrismManual = prism g f
  where
    f s1 = case s1 of
             B i -> Right i
@@ -136,7 +136,7 @@ sum1PrismManual eta = prism g f eta
    g = B
 
 sum1PrismManualChar :: Prism Sum1 Sum1 Char Char
-sum1PrismManualChar eta = prism g f eta
+sum1PrismManualChar = prism g f
  where
    f s1 = case s1 of
             A i -> Right i
@@ -146,7 +146,7 @@ sum1PrismManualChar eta = prism g f eta
    g = A
 
 sum2PrismManual :: Prism Sum2 Sum2 Int Int
-sum2PrismManual eta = prism g f eta
+sum2PrismManual = prism g f
  where
    f s1 = case s1 of
             B2 i -> Right i
@@ -155,7 +155,7 @@ sum2PrismManual eta = prism g f eta
 
 
 sum2PrismManualChar :: Prism Sum2 Sum2 Char Char
-sum2PrismManualChar eta = prism g f eta
+sum2PrismManualChar = prism g f
  where
    f s1 = case s1 of
             A2 i -> Right i
@@ -164,7 +164,7 @@ sum2PrismManualChar eta = prism g f eta
 
 -- Note we don't have a catch-all case because of #14684
 subtypePrismManual :: Prism Sum1 Sum1 Sum2 Sum2
-subtypePrismManual eta = prism g f eta
+subtypePrismManual = prism g f
   where
     f s1 = case s1 of
              A c -> Right (A2 c)
@@ -268,6 +268,6 @@ tests = TestList $ map mkHUnitTest
   , (valLabel ^? #_RecC       ) ~=? Nothing
   , customTypesTest
   ]
-  where valLabel = RecB 3 True 
+  where valLabel = RecB 3 True
 
 -- TODO: add test for traversals over multiple types

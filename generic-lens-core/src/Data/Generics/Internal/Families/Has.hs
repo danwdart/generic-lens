@@ -1,8 +1,8 @@
-{-# LANGUAGE DataKinds             #-}
-{-# LANGUAGE PolyKinds             #-}
-{-# LANGUAGE TypeFamilies          #-}
-{-# LANGUAGE TypeOperators         #-}
-{-# LANGUAGE UndecidableInstances  #-}
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE PolyKinds            #-}
+{-# LANGUAGE TypeFamilies         #-}
+{-# LANGUAGE TypeOperators        #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -24,13 +24,13 @@ module Data.Generics.Internal.Families.Has
   , GTypes
   ) where
 
-import Data.Type.Bool     (type (||))
-import Data.Type.Equality (type (==))
-import GHC.Generics
-import GHC.TypeLits (Symbol, Nat)
-import Data.Kind (Type)
+import           Data.Kind                            (Type)
+import           Data.Type.Bool                       (type (||))
+import           Data.Type.Equality                   (type (==))
+import           GHC.Generics
+import           GHC.TypeLits                         (Nat, Symbol)
 
-import Data.Generics.Product.Internal.HList
+import           Data.Generics.Product.Internal.HList
 
 -- Note: these could be factored out into a single traversal
 

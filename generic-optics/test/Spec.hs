@@ -1,34 +1,34 @@
-{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE LambdaCase                #-}
 {-# OPTIONS_GHC -dsuppress-all #-}
 
 {-# OPTIONS_GHC -funfolding-use-threshold=150 #-}
 
-{-# LANGUAGE AllowAmbiguousTypes             #-}
-{-# LANGUAGE CPP                             #-}
-{-# LANGUAGE DataKinds                       #-}
-{-# LANGUAGE DeriveGeneric                   #-}
-{-# LANGUAGE DuplicateRecordFields           #-}
-{-# LANGUAGE ExistentialQuantification       #-}
-{-# LANGUAGE RankNTypes                      #-}
-{-# LANGUAGE ScopedTypeVariables             #-}
-{-# LANGUAGE TypeApplications                #-}
-{-# LANGUAGE TemplateHaskell                 #-}
-{-# LANGUAGE OverloadedLabels                #-}
+{-# LANGUAGE AllowAmbiguousTypes       #-}
+{-# LANGUAGE CPP                       #-}
+{-# LANGUAGE DataKinds                 #-}
+{-# LANGUAGE DeriveGeneric             #-}
+{-# LANGUAGE DuplicateRecordFields     #-}
+{-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE OverloadedLabels          #-}
+{-# LANGUAGE RankNTypes                #-}
+{-# LANGUAGE ScopedTypeVariables       #-}
+{-# LANGUAGE TemplateHaskell           #-}
+{-# LANGUAGE TypeApplications          #-}
 
 module Main where
 
-import GHC.Generics
-import Data.Generics.Product
-import Data.Generics.Sum
-import Test.Inspection
-import Test.HUnit
-import Util
-import System.Exit
-import Optics.Core
+import           Data.Generics.Product
+import           Data.Generics.Sum
+import           GHC.Generics
+import           Optics.Core
+import           System.Exit
+import           Test.HUnit
+import           Test.Inspection
+import           Util
 
 -- This is sufficient at we only want to test that they typecheck
-import Test24 ()
-import Test25 ()
+import           Test24                ()
+import           Test25                ()
 
 -- import CustomChildren (customTypesTest)
 
@@ -82,7 +82,7 @@ newtype L s a = L (Lens' s a)
 
 intTraversalManual :: Traversal' Record5 Int
 intTraversalManual = traversalVL $ \f (MkRecord5 a b c d e f') ->
-    pure (\a1 a2 a3 a4 -> MkRecord5 a1 a2 c a3 e a4) <*> f a <*> f b <*> f d <*> f f'
+    (\a1 a2 a3 a4 -> MkRecord5 a1 a2 c a3 e a4) <$> f a <*> f b <*> f d <*> f f'
 
 intTraversalDerived :: Traversal' Record5 Int
 intTraversalDerived = types
@@ -111,7 +111,7 @@ sum3Param0Manual :: Traversal (Sum3 a b xxx) (Sum3 a b yyy) xxx yyy
 sum3Param0Manual = traversalVL go where
     go _ (A3 a1 a2)         = pure (A3 a1 a2)
     go _ (B3 s b1 a1 a2 b2) = pure (B3 s b1 a1 a2 b2)
-    go f (C3 c a i)         = pure (\c' -> C3 c' a i) <*> f c
+    go f (C3 c a i)         = (\c' -> C3 c' a i) <$> f c
 
 sum3Param1Derived :: Traversal (Sum3 a xxx c) (Sum3 a yyy c) xxx yyy
 sum3Param1Derived = param @1
@@ -119,7 +119,7 @@ sum3Param1Derived = param @1
 sum3Param1Manual :: Traversal (Sum3 a xxx c) (Sum3 a yyy c) xxx yyy
 sum3Param1Manual = traversalVL go where
     go _ (A3 a1 a2)         = pure (A3 a1 a2)
-    go f (B3 s b1 a1 a2 b2) = pure (\b1' b2' -> B3 s b1' a1 a2 b2') <*> f b1 <*> f b2
+    go f (B3 s b1 a1 a2 b2) = (\b1' b2' -> B3 s b1' a1 a2 b2') <$> f b1 <*> f b2
     go _ (C3 c a i)         = pure (C3 c a i)
 
 sum3Param2Derived :: Traversal (Sum3 xxx b c) (Sum3 yyy b c) xxx yyy
@@ -127,9 +127,9 @@ sum3Param2Derived = param @2
 
 sum3Param2Manual :: Traversal (Sum3 xxx b c) (Sum3 yyy b c) xxx yyy
 sum3Param2Manual = traversalVL go where
-    go f (A3 a1 a2)         = pure (\a1' a2' -> A3 a1' a2') <*> f a1 <*> f a2
-    go f (B3 s b1 a1 a2 b2) = pure (\a1' a2' -> B3 s b1 a1' a2' b2) <*> f a1 <*> f a2
-    go f (C3 c a i)         = pure (\a' -> C3 c a' i) <*> f a
+    go f (A3 a1 a2)         = (\a1' a2' -> A3 a1' a2') <$> f a1 <*> f a2
+    go f (B3 s b1 a1 a2 b2) = (\a1' a2' -> B3 s b1 a1' a2' b2) <$> f a1 <*> f a2
+    go f (C3 c a i)         = (\a' -> C3 c a' i) <$> f a
 
 sum1PrismManual :: Prism Sum1 Sum1 Int Int
 sum1PrismManual = prism g f

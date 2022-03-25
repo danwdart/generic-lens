@@ -1,15 +1,15 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes     #-}
 {-# LANGUAGE ConstraintKinds         #-}
-{-# LANGUAGE DataKinds               #-}
+{-# LANGUAGE PackageImports          #-}
+
 {-# LANGUAGE FlexibleInstances       #-}
 {-# LANGUAGE FunctionalDependencies  #-}
-{-# LANGUAGE MultiParamTypeClasses   #-}
+
 {-# LANGUAGE ScopedTypeVariables     #-}
 {-# LANGUAGE TypeApplications        #-}
 {-# LANGUAGE TypeFamilies            #-}
 {-# LANGUAGE TypeInType              #-}
-{-# LANGUAGE TypeOperators           #-}
+
 {-# LANGUAGE UndecidableInstances    #-}
 {-# LANGUAGE UndecidableSuperClasses #-}
 
@@ -38,12 +38,12 @@ module Data.Generics.Product.Fields
   , setField
   ) where
 
-import "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Internal.Optics
 
-import "generic-lens-core" Data.Generics.Internal.Void
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Fields as Core
 
-import GHC.TypeLits (Symbol)
+import           GHC.TypeLits                                              (Symbol)
 
 -- $setup
 -- == /Running example:/

@@ -1,16 +1,16 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DataKinds             #-}
+{-# LANGUAGE DeriveGeneric         #-}
 {-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE UndecidableInstances  #-}
 
 -- Note: this file may contain spoilers
 -- (although I would be really surprised if it did, I haven't seen the films)
 module StarWars where
 
-import GHC.Generics
-import Data.Generics.Product
+import           Data.Generics.Product
+import           GHC.Generics
 
 data Episode = NEWHOPE | EMPIRE | JEDI
   deriving (Generic, Show, Eq)
@@ -22,10 +22,10 @@ data Character = Character
    } deriving (Generic, Show, Eq)
 
 data Human = Human
-  { name        :: String
-  , friends     :: [Character]
-  , appearsIn   :: [Episode]
-  , homePlanet  :: String
+  { name       :: String
+  , friends    :: [Character]
+  , appearsIn  :: [Episode]
+  , homePlanet :: String
   } deriving (Generic, Show)
 
 data Droid = Droid

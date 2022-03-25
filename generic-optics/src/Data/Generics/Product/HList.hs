@@ -1,9 +1,9 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MonoLocalBinds         #-}
+{-# LANGUAGE PackageImports         #-}
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeInType             #-}
 {-# LANGUAGE UndecidableInstances   #-}
@@ -25,13 +25,13 @@ module Data.Generics.Product.HList
   ( IsList (..)
   ) where
 
-import "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Internal.Optics
 
-import "generic-lens-core" Data.Generics.Internal.Profunctor.Iso (repIso)
-import qualified "generic-lens-core" Data.Generics.Product.Internal.HList as Core
+import           "generic-lens-core" Data.Generics.Internal.Profunctor.Iso (repIso)
+import qualified "generic-lens-core" Data.Generics.Product.Internal.HList  as Core
 
-import Data.Kind
-import GHC.Generics
+import           Data.Kind
+import           GHC.Generics
 
 class IsList
   (f :: Type)

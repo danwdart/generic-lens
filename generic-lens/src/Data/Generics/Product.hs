@@ -29,11 +29,11 @@ module Data.Generics.Product
   , module Data.Generics.Product.Param
   ) where
 
-import "this" Data.Generics.Product.Any
-import "this" Data.Generics.Product.Fields
-import "this" Data.Generics.Product.Positions
-import "this" Data.Generics.Product.Subtype
-import "this" Data.Generics.Product.Typed
-import "this" Data.Generics.Product.Types
-import "this" Data.Generics.Product.Param
-import "this" Data.Generics.Product.HList
+import           "this" Data.Generics.Product.Any
+import           "this" Data.Generics.Product.Fields
+import           "this" Data.Generics.Product.HList
+import           "this" Data.Generics.Product.Param
+import           "this" Data.Generics.Product.Positions
+import           "this" Data.Generics.Product.Subtype
+import           "this" Data.Generics.Product.Typed
+import           "this" Data.Generics.Product.Types

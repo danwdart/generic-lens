@@ -1,10 +1,10 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleInstances     #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE PackageImports        #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -26,12 +26,12 @@ module Data.Generics.Product.Typed
     HasType (..)
   ) where
 
-import Optics.Core
-import Optics.Internal.Optic
-import "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Internal.Optics
+import           Optics.Core
+import           Optics.Internal.Optic
 
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Typed as Core
-import "generic-lens-core" Data.Generics.Internal.Void
 
 -- $setup
 -- == /Running example:/

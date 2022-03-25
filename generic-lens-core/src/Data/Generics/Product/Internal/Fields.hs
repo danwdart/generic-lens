@@ -1,10 +1,10 @@
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE AllowAmbiguousTypes     #-}
 {-# LANGUAGE ConstraintKinds         #-}
-{-# LANGUAGE DataKinds               #-}
+{-# LANGUAGE FlexibleContexts        #-}
+
 {-# LANGUAGE FlexibleInstances       #-}
 {-# LANGUAGE FunctionalDependencies  #-}
-{-# LANGUAGE MultiParamTypeClasses   #-}
+
 {-# LANGUAGE ScopedTypeVariables     #-}
 {-# LANGUAGE TypeApplications        #-}
 {-# LANGUAGE TypeFamilies            #-}
@@ -21,14 +21,15 @@ module Data.Generics.Product.Internal.Fields
   , derived
   ) where
 
-import Data.Generics.Internal.Families
-import Data.Generics.Product.Internal.GLens
-import Data.Kind    (Constraint, Type)
-import GHC.Generics
-import GHC.TypeLits (Symbol, ErrorMessage(..), TypeError)
-import Data.Generics.Internal.Errors
-import Data.Generics.Internal.Profunctor.Lens
-import Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Families
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Lens
+import           Data.Generics.Product.Internal.GLens
+import           Data.Kind                              (Constraint, Type)
+import           GHC.Generics
+import           GHC.TypeLits                           (ErrorMessage (..),
+                                                         Symbol, TypeError)
 
 -- Full context
 class Context (field :: Symbol) s t a b | s field -> a, t field -> b, s field b -> t, t field a -> s
@@ -100,5 +101,5 @@ type family ErrorUnless (field :: Symbol) (s :: Type) (stat :: TypeStat) :: Cons
   ErrorUnless _ _ ('TypeStat '[] '[] _)
     = ()
 
-data HasTotalFieldPSym :: Symbol -> (TyFun (Type -> Type) (Maybe Type))
+data HasTotalFieldPSym :: Symbol -> TyFun (Type -> Type) (Maybe Type)
 type instance Eval (HasTotalFieldPSym sym) tt = HasTotalFieldP sym tt

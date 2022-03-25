@@ -1,9 +1,9 @@
-{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE AllowAmbiguousTypes   #-}
+{-# LANGUAGE ConstraintKinds       #-}
 {-# LANGUAGE DataKinds             #-}
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
@@ -30,15 +30,16 @@ module Data.Generics.Sum.Internal.Typed
   , GAsType (..)
   ) where
 
-import Data.Kind
-import GHC.Generics
+import           Data.Kind
+import           GHC.Generics
 
-import GHC.TypeLits (TypeError, ErrorMessage (..), Symbol)
-import Data.Generics.Internal.Errors
-import Data.Generics.Internal.Families
-import Data.Generics.Product.Internal.HList
-import Data.Generics.Internal.Profunctor.Iso
-import Data.Generics.Internal.Profunctor.Prism
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Families
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Prism
+import           Data.Generics.Product.Internal.HList
+import           GHC.TypeLits                            (ErrorMessage (..),
+                                                          Symbol, TypeError)
 
 type Context a s
   = ( Generic s
@@ -75,7 +76,7 @@ type family ErrorUnlessOne (a :: Type) (s :: Type) (ctors :: [Symbol]) :: Constr
         ':$$: ShowSymbols cs
         )
 
--------------------------------------------------------------------------------- 
+--------------------------------------------------------------------------------
 
 -- |As 'AsType' but over generic representations as defined by "GHC.Generics".
 class GAsType (f :: Type -> Type) (as :: Type) where

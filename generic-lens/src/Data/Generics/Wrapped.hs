@@ -1,16 +1,16 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# language ConstraintKinds #-}
-{-# language DataKinds #-}
-{-# language FlexibleContexts #-}
-{-# language FlexibleInstances #-}
-{-# language FunctionalDependencies #-}
-{-# language MultiParamTypeClasses #-}
-{-# language ScopedTypeVariables #-}
-{-# language TypeFamilies #-}
-{-# language TypeOperators #-}
-{-# language UndecidableInstances #-}
+{-# LANGUAGE AllowAmbiguousTypes    #-}
+{-# LANGUAGE ConstraintKinds        #-}
+{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE PackageImports         #-}
+{-# LANGUAGE TypeApplications       #-}
+
+{-# LANGUAGE ScopedTypeVariables    #-}
+{-# LANGUAGE TypeFamilies           #-}
+
+{-# LANGUAGE UndecidableInstances   #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -34,11 +34,12 @@ module Data.Generics.Wrapped
   )
 where
 
-import qualified "this" Data.Generics.Internal.VL.Iso as VL
+import qualified "this" Data.Generics.Internal.VL.Iso               as VL
 
-import "generic-lens-core" Data.Generics.Internal.Wrapped (Context, derived)
+import           "generic-lens-core" Data.Generics.Internal.Wrapped (Context,
+                                                                     derived)
 
-import Control.Applicative    (Const(..))
+import           Control.Applicative                                (Const (..))
 
 
 -- | @since 1.1.0.0
@@ -58,13 +59,13 @@ class Wrapped s t a b | s -> a, t -> b where
 
 -- | @since 1.1.0.0
 wrappedTo :: forall s t a b. Wrapped s t a b => s -> a
-wrappedTo a = view (wrappedIso @s @t @a @b) a
+wrappedTo = view (wrappedIso @s @t @a @b)
   where view l s = getConst (l Const s)
 {-# INLINE wrappedTo #-}
 
 -- | @since 1.1.0.0
 wrappedFrom :: forall s t a b. Wrapped s t a b => b -> t
-wrappedFrom a = view (VL.fromIso (wrappedIso @s @t @a @b)) a
+wrappedFrom = view (VL.fromIso (wrappedIso @s @t @a @b))
   where view l s = getConst (l Const s)
 {-# INLINE wrappedFrom #-}
 

@@ -1,16 +1,16 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes       #-}
 {-# LANGUAGE DataKinds                 #-}
 {-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE FlexibleInstances         #-}
 {-# LANGUAGE MultiParamTypeClasses     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE PackageImports            #-}
 {-# LANGUAGE PolyKinds                 #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
 {-# LANGUAGE TypeApplications          #-}
 {-# LANGUAGE TypeFamilies              #-}
-{-# LANGUAGE TypeOperators             #-}
+
 {-# LANGUAGE UndecidableInstances      #-}
 
 -----------------------------------------------------------------------------
@@ -34,12 +34,12 @@ module Data.Generics.Product.Subtype
   ) where
 
 
-import "this" Data.Generics.Internal.VL.Lens as VL
+import           "this" Data.Generics.Internal.VL.Lens                      as VL
 
-import "generic-lens-core" Data.Generics.Internal.Void
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Subtype as Core
 
-import GHC.Generics (Generic (to, from) )
+import           GHC.Generics                                               (Generic (from, to))
 
 -- $setup
 -- == /Running example:/

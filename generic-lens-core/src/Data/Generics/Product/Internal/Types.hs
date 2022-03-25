@@ -1,10 +1,10 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes   #-}
 {-# LANGUAGE ConstraintKinds       #-}
 {-# LANGUAGE DataKinds             #-}
-{-# LANGUAGE DefaultSignatures     #-}
+{-# LANGUAGE PackageImports        #-}
+
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds             #-}
 {-# LANGUAGE Rank2Types            #-}
@@ -16,17 +16,19 @@
 
 module Data.Generics.Product.Internal.Types where
 
-import Data.Kind
-import Data.Int (Int8, Int16, Int32, Int64)
-import Data.Word (Word8, Word16, Word32, Word64)
-import qualified Data.Text as T
+import           Data.Int                                   (Int16, Int32,
+                                                             Int64, Int8)
+import           Data.Kind
+import qualified Data.Text                                  as T
+import           Data.Word                                  (Word16, Word32,
+                                                             Word64, Word8)
 
-import GHC.Generics
-import Data.Generics.Internal.GenericN
-import GHC.TypeLits
-import Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.GenericN
+import           GHC.Generics
+import           GHC.TypeLits
 
-import "this" Data.Generics.Internal.VL.Traversal
+import           "this" Data.Generics.Internal.VL.Traversal
 
 
 -- | The children of a type are the types of its fields.
@@ -103,7 +105,7 @@ type family NoChildren (ch :: Type) (a :: Type) :: Constraint where
                      , 'Text "arising from a traversal over " ':<>: QuoteType a
                      , 'Text "with custom strategy " ':<>: QuoteType ch
                      ]
-                    
+
 
 type family Interesting' (ch :: Type) (a :: Type) (seen :: [Type]) (ts :: [Type]) :: Maybe [Type] where
   Interesting' ch _ seen '[] = 'Just seen

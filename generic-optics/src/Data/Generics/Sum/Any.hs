@@ -1,9 +1,9 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MonoLocalBinds         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE PackageImports         #-}
+
 {-# LANGUAGE PolyKinds              #-}
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
@@ -29,9 +29,9 @@ module Data.Generics.Sum.Any
     AsAny (..)
   ) where
 
-import "this" Data.Generics.Internal.Optics
-import "this" Data.Generics.Sum.Constructors
-import "this" Data.Generics.Sum.Typed
+import           "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Sum.Constructors
+import           "this" Data.Generics.Sum.Typed
 
 -- $setup
 -- == /Running example:/

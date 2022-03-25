@@ -1,19 +1,19 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE TypeInType #-}
-{-# LANGUAGE PartialTypeSignatures #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE ConstraintKinds        #-}
-{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE PackageImports         #-}
+{-# LANGUAGE PartialTypeSignatures  #-}
+{-# LANGUAGE TypeInType             #-}
+
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE PolyKinds              #-}
+
+
+
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
 {-# LANGUAGE TypeFamilies           #-}
-{-# LANGUAGE TypeOperators          #-}
+
 {-# LANGUAGE UndecidableInstances   #-}
 
 -----------------------------------------------------------------------------
@@ -42,12 +42,12 @@ module Data.Generics.Product.Positions
   , setPosition
   ) where
 
-import "this" Data.Generics.Internal.VL.Lens as VL
+import           "this" Data.Generics.Internal.VL.Lens                        as VL
 
-import "generic-lens-core" Data.Generics.Internal.Void
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Positions as Core
 
-import GHC.TypeLits   (Nat)
+import           GHC.TypeLits                                                 (Nat)
 
 -- $setup
 -- == /Running example:/

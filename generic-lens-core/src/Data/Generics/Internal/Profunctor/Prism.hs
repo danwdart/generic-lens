@@ -1,10 +1,10 @@
 {-# OPTIONS_HADDOCK hide #-}
 {-# LANGUAGE GADTs                     #-}
-{-# LANGUAGE LambdaCase                #-}
+
 {-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
 {-# LANGUAGE TypeOperators             #-}
 
@@ -22,8 +22,8 @@
 -----------------------------------------------------------------------------
 module Data.Generics.Internal.Profunctor.Prism where
 
-import Data.Profunctor.Indexed
-import GHC.Generics
+import           Data.Profunctor.Indexed
+import           GHC.Generics
 
 type APrism i s t a b = Market a b i a b -> Market a b i s t
 
@@ -48,7 +48,7 @@ _Right :: Prism (Either c a) (Either c b) a b
 _Right = right'
 
 prismPRavel :: APrism i s t a b -> Prism s t a b
-prismPRavel l pab = (prism2prismp $ l idPrism) pab
+prismPRavel l = (prism2prismp $ l idPrism)
 
 build :: (Tagged i b b -> Tagged i t t) -> b -> t
 build p = unTagged #. p .# Tagged
@@ -76,6 +76,6 @@ prism2prismp (Market bt seta) = prism bt seta
 idPrism :: Market a b i a b
 idPrism = Market id Right
 
-gsum :: (a x -> c) -> (b x -> c) -> ((a :+: b) x) -> c
+gsum :: (a x -> c) -> (b x -> c) -> (a :+: b) x -> c
 gsum f _ (L1 x) =  f x
 gsum _ g (R1 y) =  g y

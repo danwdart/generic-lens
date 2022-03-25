@@ -1,12 +1,12 @@
-{-# LANGUAGE AllowAmbiguousTypes    #-}
-{-# LANGUAGE DataKinds              #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE GADTs                  #-}
-{-# LANGUAGE PolyKinds              #-}
-{-# LANGUAGE TypeFamilies           #-}
-{-# LANGUAGE TypeOperators          #-}
-{-# LANGUAGE UndecidableInstances   #-}
+{-# LANGUAGE AllowAmbiguousTypes  #-}
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE FlexibleInstances    #-}
+
+{-# LANGUAGE GADTs                #-}
+{-# LANGUAGE PolyKinds            #-}
+{-# LANGUAGE TypeFamilies         #-}
+{-# LANGUAGE TypeOperators        #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Data.Generics.Internal.Families.Changing
   ( Indexed
@@ -19,7 +19,8 @@ module Data.Generics.Internal.Families.Changing
   , UnifyHead
   ) where
 
-import GHC.TypeLits (Nat, type (-), type (+), TypeError, ErrorMessage (..))
+import           GHC.TypeLits (ErrorMessage (..), Nat, TypeError, type (+),
+                               type (-))
 
 {-
   Note [Changing type parameters]

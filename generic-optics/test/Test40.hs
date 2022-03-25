@@ -1,13 +1,13 @@
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE DataKinds        #-}
+{-# LANGUAGE DeriveGeneric    #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE TypeFamilies     #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Test40 where
 
-import Data.Generics.Product
-import GHC.Generics
+import           Data.Generics.Product
+import           GHC.Generics
 
 class MyClass a where
   data AssocData a

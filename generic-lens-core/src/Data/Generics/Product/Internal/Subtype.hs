@@ -1,12 +1,12 @@
-{-# LANGUAGE ConstraintKinds #-}
-{-# LANGUAGE TypeInType #-}
 {-# LANGUAGE AllowAmbiguousTypes       #-}
-{-# LANGUAGE DataKinds                 #-}
+{-# LANGUAGE ConstraintKinds           #-}
+{-# LANGUAGE TypeInType                #-}
+
 {-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE FlexibleInstances         #-}
 {-# LANGUAGE MultiParamTypeClasses     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
-{-# LANGUAGE PolyKinds                 #-}
+
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
 {-# LANGUAGE TypeApplications          #-}
@@ -33,17 +33,17 @@ module Data.Generics.Product.Internal.Subtype
   , GUpcast (..)
   ) where
 
-import Data.Generics.Internal.Families
-import Data.Generics.Product.Internal.GLens
+import           Data.Generics.Internal.Families
+import           Data.Generics.Product.Internal.GLens
 
-import Data.Kind (Type)
-import GHC.Generics
-import GHC.TypeLits (Symbol)
-import Data.Generics.Internal.Profunctor.Lens (view)
+import           Data.Generics.Internal.Profunctor.Lens (view)
+import           Data.Kind                              (Constraint, Type)
+import           GHC.Generics
+import           GHC.TypeLits                           (Symbol)
 
-import GHC.TypeLits (TypeError, ErrorMessage (..))
-import Data.Kind (Constraint)
-import Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Errors
+import           GHC.TypeLits                           (ErrorMessage (..),
+                                                         TypeError)
 
 type Context a b
   = ( Generic a
@@ -114,7 +114,7 @@ instance (GSmash a sup, GSmash b sup) => GSmash (a :*: b) sup where
   gsmash rep (a :*: b) = gsmash rep a :*: gsmash rep b
 
 instance
-  ( leaf ~ (S1 ('MetaSel ('Just field) p f b) t)
+  ( leaf ~ S1 ('MetaSel ('Just field) p f b) t
   , GSmashLeaf leaf sup (HasTotalFieldP field sup)
   ) => GSmash (S1 ('MetaSel ('Just field) p f b) t) sup where
 
@@ -137,5 +137,5 @@ instance
 instance GSmashLeaf (S1 ('MetaSel ('Just field) p f b) (Rec0 t)) sup 'Nothing where
   gsmashLeaf _ = id
 
-data HasTotalFieldPSym :: Symbol -> (TyFun (Type -> Type) (Maybe Type))
+data HasTotalFieldPSym :: Symbol -> TyFun (Type -> Type) (Maybe Type)
 type instance Eval (HasTotalFieldPSym sym) tt = HasTotalFieldP sym tt

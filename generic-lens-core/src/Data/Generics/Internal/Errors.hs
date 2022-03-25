@@ -1,10 +1,10 @@
+{-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE KindSignatures       #-}
+{-# LANGUAGE PolyKinds            #-}
+{-# LANGUAGE TypeFamilies         #-}
+{-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE KindSignatures #-}
-{-# LANGUAGE PolyKinds #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE KindSignatures #-}
+
 
 -------------------------------------------------------------------------------
 ---- |
@@ -28,9 +28,9 @@ module Data.Generics.Internal.Errors
  , PrettyError
  ) where
 
-import GHC.Generics
-import GHC.TypeLits
-import Data.Kind
+import           Data.Kind
+import           GHC.Generics
+import           GHC.TypeLits
 
 type family NoGeneric (a :: Type) (ctxt :: [ErrorMessage]) :: Constraint where
   NoGeneric a ctxt = PrettyError ('Text "No instance for " ':<>: QuoteType (Generic a)

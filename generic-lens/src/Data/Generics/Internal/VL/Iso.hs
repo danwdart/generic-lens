@@ -1,10 +1,10 @@
-{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE PolyKinds                 #-}
 {-# OPTIONS_HADDOCK hide #-}
 {-# LANGUAGE GADTs                     #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE Rank2Types                #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
-{-# LANGUAGE TypeFamilies              #-}
+
 {-# LANGUAGE TypeFamilyDependencies    #-}
 {-# LANGUAGE TypeOperators             #-}
 
@@ -22,11 +22,12 @@
 -----------------------------------------------------------------------------
 module Data.Generics.Internal.VL.Iso where
 
-import Data.Coerce (coerce)
-import Data.Functor.Identity (Identity(..))
-import Data.Profunctor
-import GHC.Generics
-import Data.Generics.Internal.GenericN (Rec (..), GenericN (..), Param (..))
+import           Data.Coerce                           (coerce)
+import           Data.Functor.Identity                 (Identity (..))
+import           Data.Generics.Internal.GenericN       (GenericN (..),
+                                                        Param (..), Rec (..))
+import           Data.Profunctor
+import           GHC.Generics
 
 import qualified Data.Generics.Internal.Profunctor.Iso as P
 
@@ -86,7 +87,7 @@ recIso :: Iso (Rec r a p) (Rec r b p) a b
 recIso = iso (unK1 . unRec) (Rec . K1)
 
 prodIso :: Iso ((a :*: b) x) ((a' :*: b') x) (a x, b x) (a' x, b' x)
-prodIso = iso (\(a :*: b) -> (a, b)) (\(a, b) -> (a :*: b))
+prodIso = iso (\(a :*: b) -> (a, b)) (uncurry (:*:))
 
 iso :: (s -> a) -> (b -> t) -> Iso s t a b
 iso sa bt = dimap sa (fmap bt)

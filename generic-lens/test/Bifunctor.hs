@@ -1,19 +1,19 @@
-{-# LANGUAGE DataKinds          #-}
-{-# LANGUAGE DefaultSignatures  #-}
-{-# LANGUAGE DeriveAnyClass     #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE FlexibleContexts   #-}
-{-# LANGUAGE MonoLocalBinds     #-}
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE TypeApplications   #-}
+{-# LANGUAGE DataKinds        #-}
+
+
+{-# LANGUAGE DeriveGeneric    #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MonoLocalBinds   #-}
+
+{-# LANGUAGE TypeApplications #-}
 
 module Main (main) where
 
-import Control.Lens hiding (Bifunctor(..))
-import           Control.Monad (void)
-import Data.Generics.Product
-import GHC.Generics
-import Test.HUnit
+import           Control.Lens          hiding (Bifunctor (..))
+import           Control.Monad         (void)
+import           Data.Generics.Product
+import           GHC.Generics
+import           Test.HUnit
 
 main :: IO ()
 main = void $ runTestTT $

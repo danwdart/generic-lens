@@ -24,7 +24,7 @@ module Data.Generics.Sum
   , module Data.Generics.Sum.Typed
   ) where
 
-import "this" Data.Generics.Sum.Any
-import "this" Data.Generics.Sum.Constructors
-import "this" Data.Generics.Sum.Subtype
-import "this" Data.Generics.Sum.Typed
+import           "this" Data.Generics.Sum.Any
+import           "this" Data.Generics.Sum.Constructors
+import           "this" Data.Generics.Sum.Subtype
+import           "this" Data.Generics.Sum.Typed

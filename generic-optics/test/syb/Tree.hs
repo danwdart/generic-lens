@@ -10,11 +10,11 @@ Example adapted from SYB
 
 module Main (main) where
 
-import Optics.Core
-import Control.Monad (void)
-import Data.Generics.Product
-import GHC.Generics
-import Test.HUnit
+import           Control.Monad         (void)
+import           Data.Generics.Product
+import           GHC.Generics
+import           Optics.Core
+import           Test.HUnit
 
 main :: IO ()
 main = void $ runTestTT tests

@@ -1,16 +1,16 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE TypeApplications #-}
-{-# language ConstraintKinds #-}
-{-# language DataKinds #-}
-{-# language FlexibleContexts #-}
-{-# language FlexibleInstances #-}
-{-# language FunctionalDependencies #-}
-{-# language MultiParamTypeClasses #-}
-{-# language ScopedTypeVariables #-}
-{-# language TypeFamilies #-}
-{-# language TypeOperators #-}
-{-# language UndecidableInstances #-}
+{-# LANGUAGE AllowAmbiguousTypes    #-}
+{-# LANGUAGE ConstraintKinds        #-}
+{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE PackageImports         #-}
+{-# LANGUAGE TypeApplications       #-}
+
+{-# LANGUAGE ScopedTypeVariables    #-}
+{-# LANGUAGE TypeFamilies           #-}
+
+{-# LANGUAGE UndecidableInstances   #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -34,10 +34,11 @@ module Data.Generics.Wrapped
   )
 where
 
-import Optics.Core
-import Optics.Internal.Optic
+import           Optics.Core
+import           Optics.Internal.Optic
 
-import "generic-lens-core" Data.Generics.Internal.Wrapped (Context, derived)
+import           "generic-lens-core" Data.Generics.Internal.Wrapped (Context,
+                                                                     derived)
 
 
 -- | @since 1.1.0.0
@@ -57,12 +58,12 @@ class Wrapped s t a b | s -> a, t -> b where
 
 -- | @since 1.1.0.0
 wrappedTo :: forall s a. Wrapped s s a a => s -> a
-wrappedTo s = view (wrappedIso @s @s @a @a) s
+wrappedTo = view (wrappedIso @s @s @a @a)
 {-# INLINE wrappedTo #-}
 
 -- | @since 1.1.0.0
 wrappedFrom :: forall s a. Wrapped s s a a => a -> s
-wrappedFrom a = view (re wrappedIso) a
+wrappedFrom = view (re wrappedIso)
 {-# INLINE wrappedFrom #-}
 
 instance Context s t a b => Wrapped s t a b where

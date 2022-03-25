@@ -1,12 +1,12 @@
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TypeInType #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE ConstraintKinds        #-}
-{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE TypeInType             #-}
+
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+
+
 {-# LANGUAGE Rank2Types             #-}
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
@@ -34,11 +34,12 @@ module Data.Generics.Product.Internal.GLens
   , Eval
   ) where
 
-import Data.Generics.Internal.Profunctor.Lens (Lens, choosing, first, second)
-import Data.Generics.Internal.Profunctor.Iso (kIso, sumIso, mIso)
+import           Data.Generics.Internal.Profunctor.Iso  (kIso, mIso, sumIso)
+import           Data.Generics.Internal.Profunctor.Lens (Lens, choosing, first,
+                                                         second)
 
-import Data.Kind    (Type)
-import GHC.Generics
+import           Data.Kind                              (Type)
+import           GHC.Generics
 
 type Pred = TyFun (Type -> Type) (Maybe Type)
 

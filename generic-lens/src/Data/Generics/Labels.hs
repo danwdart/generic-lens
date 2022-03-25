@@ -1,15 +1,15 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE ConstraintKinds        #-}
 {-# LANGUAGE DataKinds              #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
+{-# LANGUAGE PackageImports         #-}
+
 {-# LANGUAGE PolyKinds              #-}
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
-{-# LANGUAGE TypeOperators          #-}
 {-# LANGUAGE TypeFamilies           #-}
+{-# LANGUAGE TypeOperators          #-}
 {-# LANGUAGE UndecidableInstances   #-}
 {-# OPTIONS_GHC -Wno-orphans        #-}
 
@@ -35,18 +35,18 @@ module Data.Generics.Labels
   , Constructor'
   ) where
 
-import "this" Data.Generics.Product
-import "this" Data.Generics.Sum
+import           "this" Data.Generics.Product
+import           "this" Data.Generics.Sum
 
-import "this" Data.Generics.Internal.VL.Lens  (Lens)
-import "this" Data.Generics.Internal.VL.Prism (Prism)
+import           "this" Data.Generics.Internal.VL.Lens  (Lens)
+import           "this" Data.Generics.Internal.VL.Prism (Prism)
 
-import Data.Profunctor    (Choice)
-import Data.Type.Bool     (type (&&))
-import Data.Type.Equality (type (==))
+import           Data.Profunctor                        (Choice)
+import           Data.Type.Bool                         (type (&&))
+import           Data.Type.Equality                     (type (==))
 
-import GHC.OverloadedLabels
-import GHC.TypeLits
+import           GHC.OverloadedLabels
+import           GHC.TypeLits
 
 -- $sec1
 -- An instance for creating lenses and prisms with @#identifiers@ from the

@@ -1,12 +1,12 @@
-{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
 {-# LANGUAGE MonoLocalBinds        #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE PackageImports        #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
-{-# LANGUAGE TypeOperators         #-}
-{-# LANGUAGE TypeSynonymInstances  #-}
+
+
 {-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
@@ -29,9 +29,9 @@ module Data.Generics.Sum.Subtype
     AsSubtype (..)
   ) where
 
-import "this" Data.Generics.Internal.Optics
+import           "this" Data.Generics.Internal.Optics
 
-import "generic-lens-core" Data.Generics.Internal.Void
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Sum.Internal.Subtype as Core
 
 

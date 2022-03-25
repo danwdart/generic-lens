@@ -1,13 +1,13 @@
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DataKinds        #-}
+{-# LANGUAGE DeriveGeneric    #-}
 {-# LANGUAGE TypeApplications #-}
--- | 
+-- |
 
 module Test88 where
 
-import Control.Lens
-import Data.Generics.Product.Param
-import GHC.Generics
+import           Control.Lens
+import           Data.Generics.Product.Param
+import           GHC.Generics
 
 data Foo a = Foo a deriving (Eq, Show, Generic)
 data Bar b = Bar b deriving (Eq, Show, Generic)

@@ -23,19 +23,19 @@ module Data.Generics.Internal.Families.Collect
   , type (\\)
   ) where
 
-import Data.Type.Bool     (If)
-import Data.Type.Equality (type (==))
-import GHC.Generics
-import GHC.TypeLits       (Symbol, CmpSymbol)
+import           Data.Type.Bool                       (If)
+import           Data.Type.Equality                   (type (==))
+import           GHC.Generics
+import           GHC.TypeLits                         (CmpSymbol, Symbol)
 
-import Data.Generics.Product.Internal.HList (type (++))
-import Data.Generics.Internal.Families.Has (GTypes)
+import           Data.Generics.Internal.Families.Has  (GTypes)
+import           Data.Generics.Product.Internal.HList (type (++))
 
 data TypeStat
   = TypeStat
-    { _containsNone :: [Symbol]
+    { _containsNone     :: [Symbol]
     , _containsMultiple :: [Symbol]
-    , _containsOne :: [Symbol]
+    , _containsOne      :: [Symbol]
     }
 
 type EmptyStat = 'TypeStat '[] '[] '[]

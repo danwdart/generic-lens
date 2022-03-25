@@ -1,17 +1,17 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE PolyKinds #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE PackageImports         #-}
+
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE DataKinds              #-}
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE GADTs                  #-}
-{-# LANGUAGE KindSignatures         #-}
+{-# LANGUAGE PolyKinds              #-}
+{-# LANGUAGE TypeFamilies           #-}
+
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
-{-# LANGUAGE TypeOperators          #-}
+
 {-# LANGUAGE UndecidableInstances   #-}
 
 --------------------------------------------------------------------------------
@@ -33,14 +33,14 @@ module Data.Generics.Product.Param
   , Param (..)
   ) where
 
-import Data.Generics.Internal.Optics
+import           Data.Generics.Internal.Optics
 
-import qualified "generic-lens-core" Data.Generics.Internal.VL.Traversal as VL
+import           "generic-lens-core" Data.Generics.Internal.GenericN
+import qualified "generic-lens-core" Data.Generics.Internal.VL.Traversal  as VL
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Product.Internal.Param as Core
-import "generic-lens-core" Data.Generics.Internal.GenericN
-import "generic-lens-core" Data.Generics.Internal.Void
 
-import GHC.TypeLits
+import           GHC.TypeLits
 
 class HasParam (p :: Nat) s t a b | p t a -> s, p s b -> t, p s -> a, p t -> b where
   param :: Traversal s t a b

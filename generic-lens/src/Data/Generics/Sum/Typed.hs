@@ -1,15 +1,15 @@
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE AllowAmbiguousTypes    #-}
-{-# LANGUAGE DataKinds              #-}
-{-# LANGUAGE FlexibleContexts       #-}
-{-# LANGUAGE FlexibleInstances      #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE ScopedTypeVariables    #-}
-{-# LANGUAGE TypeFamilies           #-}
-{-# LANGUAGE TypeOperators          #-}
-{-# LANGUAGE UndecidableInstances   #-}
+{-# LANGUAGE PackageImports        #-}
+
+{-# LANGUAGE AllowAmbiguousTypes   #-}
+{-# LANGUAGE DataKinds             #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleInstances     #-}
+
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeFamilies          #-}
+
+{-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
 -- |
@@ -31,10 +31,10 @@ module Data.Generics.Sum.Typed
     AsType (..)
   ) where
 
-import "this" Data.Generics.Internal.VL.Prism
+import           "this" Data.Generics.Internal.VL.Prism
 
+import           "generic-lens-core" Data.Generics.Internal.Void
 import qualified "generic-lens-core" Data.Generics.Sum.Internal.Typed as Core
-import "generic-lens-core" Data.Generics.Internal.Void
 
 -- $setup
 -- >>> :set -XTypeApplications

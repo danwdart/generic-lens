@@ -1,13 +1,13 @@
-{-# LANGUAGE TypeInType #-}
 {-# LANGUAGE AllowAmbiguousTypes    #-}
 {-# LANGUAGE ConstraintKinds        #-}
-{-# LANGUAGE DataKinds              #-}
+{-# LANGUAGE TypeInType             #-}
+
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE KindSignatures         #-}
-{-# LANGUAGE MultiParamTypeClasses  #-}
-{-# LANGUAGE PolyKinds              #-}
+
+
+
 {-# LANGUAGE ScopedTypeVariables    #-}
 {-# LANGUAGE TypeApplications       #-}
 {-# LANGUAGE TypeFamilies           #-}
@@ -40,17 +40,19 @@ module Data.Generics.Product.Internal.Positions
   , derived'
   ) where
 
-import Data.Kind      (Type, Constraint)
-import Data.Type.Bool (If, Not, type (&&))
-import GHC.Generics
-import GHC.TypeLits   (type (<=?), type (+), Nat, TypeError, ErrorMessage(..))
-import Data.Coerce
-  
-import Data.Generics.Internal.Families
-import Data.Generics.Product.Internal.GLens
-import Data.Generics.Internal.Errors
-import Data.Generics.Internal.Profunctor.Lens
-import Data.Generics.Internal.Profunctor.Iso
+import           Data.Coerce
+import           Data.Kind                              (Constraint, Type)
+import           Data.Type.Bool                         (If, Not, type (&&))
+import           GHC.Generics
+import           GHC.TypeLits                           (ErrorMessage (..), Nat,
+                                                         TypeError, type (+),
+                                                         type (<=?))
+
+import           Data.Generics.Internal.Errors
+import           Data.Generics.Internal.Families
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Lens
+import           Data.Generics.Product.Internal.GLens
 
 type Context' (i :: Nat) s a
   = ( Generic s
@@ -76,7 +78,7 @@ instance
   , s ~ Infer t b' a
   ) => Context i s t a b
 
-type Context_ i s t a b = 
+type Context_ i s t a b =
   ( ErrorUnless i s (0 <? i && i <=? Size (Rep s))
   , UnifyHead s t
   , UnifyHead t s
@@ -97,11 +99,11 @@ type Context0 i s t a b
     )
 
 derived0 :: forall i s t a b. Context0 i s t a b => Lens s t a b
-derived0 = (repIso . coerced @(CRep s) @(CRep t) . glens @(HasTotalPositionPSym i))
+derived0 = repIso . coerced @(CRep s) @(CRep t) . glens @(HasTotalPositionPSym i)
 {-# INLINE derived0 #-}
 
 derived' :: forall i s a. Context' i s a => Lens s s a a
-derived' = (repIso . coerced @(CRep s) @(CRep s) . glens @(HasTotalPositionPSym i))
+derived' = repIso . coerced @(CRep s) @(CRep s) . glens @(HasTotalPositionPSym i)
 {-# INLINE derived' #-}
 
 type family ErrorUnless (i :: Nat) (s :: Type) (hasP :: Bool) :: Constraint where
@@ -116,10 +118,10 @@ type family ErrorUnless (i :: Nat) (s :: Type) (hasP :: Bool) :: Constraint wher
   ErrorUnless _ _ 'True
     = ()
 
-data HasTotalPositionPSym  :: Nat -> (TyFun (Type -> Type) (Maybe Type))
+data HasTotalPositionPSym  :: Nat -> TyFun (Type -> Type) (Maybe Type)
 type instance Eval (HasTotalPositionPSym t) tt = HasTotalPositionP t tt
 
-  
+
 -- We wouldn't need the universal 'x' here if we could express above that
 -- forall x. Coercible (cs x) (Rep s x), but this requires quantified
 -- constraints
@@ -128,7 +130,7 @@ coerced :: forall s t s' t' x. (Coercible t t', Coercible s s')
 coerced = iso coerce coerce
 {-# INLINE coerced #-}
 
---------------------------------------------------------------------------------  
+--------------------------------------------------------------------------------
 
 -- | Alias for the kind of the generic rep
 type G = Type -> Type

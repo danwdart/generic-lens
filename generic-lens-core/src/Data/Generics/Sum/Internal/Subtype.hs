@@ -1,16 +1,16 @@
-{-# LANGUAGE MonoLocalBinds #-}
-{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE AllowAmbiguousTypes   #-}
+{-# LANGUAGE ConstraintKinds       #-}
 {-# LANGUAGE DataKinds             #-}
 {-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE KindSignatures        #-}
+{-# LANGUAGE MonoLocalBinds        #-}
+
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds             #-}
 {-# LANGUAGE ScopedTypeVariables   #-}
 {-# LANGUAGE TypeApplications      #-}
 {-# LANGUAGE TypeOperators         #-}
-{-# LANGUAGE TypeSynonymInstances  #-}
+
 {-# LANGUAGE UndecidableInstances  #-}
 
 -----------------------------------------------------------------------------
@@ -31,14 +31,14 @@ module Data.Generics.Sum.Internal.Subtype
   , derived
   ) where
 
-import Data.Generics.Product.Internal.HList
-import Data.Generics.Sum.Internal.Typed (GAsType (..))
+import           Data.Generics.Product.Internal.HList
+import           Data.Generics.Sum.Internal.Typed        (GAsType (..))
 
-import Data.Kind
-import GHC.Generics
-import Data.Generics.Internal.Profunctor.Iso
-import Data.Generics.Internal.Profunctor.Prism
-import Data.Generics.Internal.Families.Has
+import           Data.Generics.Internal.Families.Has
+import           Data.Generics.Internal.Profunctor.Iso
+import           Data.Generics.Internal.Profunctor.Prism
+import           Data.Kind
+import           GHC.Generics
 
 type Context sub sup
   = ( Generic sub
@@ -50,7 +50,7 @@ derived :: Context sub sup => Prism' sup sub
 derived = repIso . _GSub . fromIso repIso
 {-# INLINE derived #-}
 
---------------------------------------------------------------------------------  
+--------------------------------------------------------------------------------
 
 -- |As 'AsSubtype' but over generic representations as defined by
 --  "GHC.Generics".
@@ -96,22 +96,22 @@ instance
   , GDowncastC (HasPartialTypeP as sub) sub sup
   ) => GDowncast sub (C1 m sup) where
   _GDowncast (M1 m) = case _GDowncastC @(HasPartialTypeP as sub) m of
-    Left _ -> Left (M1 m)
+    Left _  -> Left (M1 m)
     Right r -> Right r
   {-# INLINE _GDowncast #-}
 
 instance (GDowncast sub l, GDowncast sub r) => GDowncast sub (l :+: r) where
   _GDowncast (L1 x) = case _GDowncast x of
-    Left _ -> Left (L1 x)
+    Left _  -> Left (L1 x)
     Right r -> Right r
   _GDowncast (R1 x) = case _GDowncast x of
-    Left _ -> Left (R1 x)
+    Left _  -> Left (R1 x)
     Right r -> Right r
   {-# INLINE _GDowncast #-}
 
 instance GDowncast sub sup => GDowncast sub (D1 m sup) where
   _GDowncast (M1 m) = case _GDowncast m of
-    Left _ -> Left (M1 m)
+    Left _  -> Left (M1 m)
     Right r -> Right r
   {-# INLINE _GDowncast #-}
 
